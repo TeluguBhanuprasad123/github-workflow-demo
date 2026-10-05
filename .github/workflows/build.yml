@@ -1,0 +1,33 @@
+name: Java Build
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Compile Java
+        run: |
+          mkdir -p out
+          javac -d out src/com/bhanu/www/main/Main.java
+
+      - name: Run application
+        run: |
+          java -cp out com.bhanu.www.main.Main
