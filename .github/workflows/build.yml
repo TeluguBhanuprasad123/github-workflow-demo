@@ -20,14 +20,11 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile Java
-        run: |
-          mkdir -p out
-          javac -d out src/com/bhanu/www/main/Main.java
+      - name: Build and test
+        run: mvn --batch-mode test
 
       - name: Run application
-        run: |
-          java -cp out com.bhanu.www.main.Main
+        run: java -cp target/classes com.bhanu.www.app.Main
